@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ public class MainFragment extends Fragment {
     private MainViewModel mainViewModel;
     private FragmentMainBinding fragmentMainBinding;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
@@ -25,13 +28,24 @@ public class MainFragment extends Fragment {
         fragmentMainBinding = FragmentMainBinding.inflate(inflater, container, false);
         View root = fragmentMainBinding.getRoot();
 
-        final TextView textView = fragmentMainBinding.textSlideshow;
-        mainViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+
+
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //final TextView textView1 = fragmentMainBinding.fragmentMainText1;
+        final TextView textView2 = fragmentMainBinding.fragmentMainText2;
+        final LinearLayout linearLayout = fragmentMainBinding.fragmentMainLinear;
+        final SeekBar seekBar = fragmentMainBinding.fragmentMainSeekBar;
+
+        mainViewModel.getText1().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                //textView1.setText(s);
             }
-        });;
+        });
     }
 
     @Override

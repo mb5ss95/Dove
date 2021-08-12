@@ -1,19 +1,32 @@
 package com.example.dove.main;
 
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.dove.databinding.FragmentMainBinding;
+public class MainViewModel extends ViewModel {
 
-public class MainViewModel  extends ViewModel {
+    private MutableLiveData<String> mText1, mText2;
+
     public MainViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText1 = new MutableLiveData<>();
+        mText2 = new MutableLiveData<>();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void setText1(String s){
+        mText1.setValue(s);
     }
+
+    public void setText2(String s){
+        mText2.setValue(s);
+    }
+
+    public LiveData<String> getText1() {
+        return mText1;
+    }
+
+    public LiveData<String> getText2() {
+        return mText2;
+    }
+
 }
