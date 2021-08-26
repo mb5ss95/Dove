@@ -1,14 +1,32 @@
 package com.example.dove.ble;
 
-import androidx.lifecycle.LiveData;
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class BleViewModel extends ViewModel {
-    private MutableLiveData<String> mText1, mText2;
+import com.example.dove.ItemRepository;
+import com.example.dove.ListItemModel;
 
-    public BleViewModel() {
-        mText1 = new MutableLiveData<>();
-        mText2 = new MutableLiveData<>();
+import java.util.ArrayList;
+
+public class BleViewModel extends AndroidViewModel {
+    private final ItemRepository itemRepository;
+
+    public BleViewModel(Application application) {
+        super(application);
+        itemRepository = new ItemRepository();
+    }
+
+    public MutableLiveData<ArrayList<ListItemModel>> getMutableLiveDataItemsList(){
+        return itemRepository.getMutableLiveDataItemList();
+    }
+
+    public void loadItems(){
+        itemRepository.loadItems();
+    }
+
+    public boolean isReadyToStart(){
+        return itemRepository.isReadyToStart();
     }
 }

@@ -2,57 +2,54 @@ package com.example.dove;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> implements ItemClickListener {
-    // override other abstract methods here
+
+import com.example.dove.databinding.ListItemBinding;
+
+import java.util.ArrayList;
+
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
+    private ArrayList<ListItemModel> listItemModels;
 
     @Override
     public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item, parent, false);
-        return new ViewHolder(itemView, this);
+        ListItemBinding listItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.list_item, parent, false);
+        return new ViewHolder(listItemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), position, Toast.LENGTH_SHORT).show();
-            }
-        });
+        ListItemModel currentItem = listItemModels.get(position);
+        holder.listItemBinding.setItems(currentItem);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        if(listItemModels != null){
+            return listItemModels.size();
+        }
+        else{
+            return 0;
+        }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return 0;
+    public void setItemsList(ArrayList<ListItemModel> listItemModels){
+        this.listItemModels = listItemModels;
+        notifyDataSetChanged();
     }
 
-    @Override
-    public void onItemClick(int position) {
-
-    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(View itemView, final ItemClickListener itemClickListener) {
-            super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    itemClickListener.onItemClick(getAdapterPosition());
-                }
-            });
+        private final ListItemBinding listItemBinding;
+        public ViewHolder(@NonNull ListItemBinding listItemBinding) {
+            super(listItemBinding.getRoot());
+            this.listItemBinding = listItemBinding;
         }
     }
 }
