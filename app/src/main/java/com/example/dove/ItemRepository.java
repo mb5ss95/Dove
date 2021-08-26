@@ -15,11 +15,12 @@ public class ItemRepository implements ListItemModel.OnStatusChangeListener{
         items.add(new ListItemModel(this, "item1", "READY", 2));
         items.add(new ListItemModel(this, "item2", "READY", 5));
         items.add(new ListItemModel(this, "item3", "READY", 8));
+        notifyItemsChanged();
     }
 
     @Override
     public void OnStatusChanged(ListItemModel listItemModel, String status) {
-        notify();
+        notifyItemsChanged();
     }
 
     public MutableLiveData<ArrayList<ListItemModel>> getMutableLiveDataItemList() {

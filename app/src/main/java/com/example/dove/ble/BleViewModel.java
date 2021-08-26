@@ -26,7 +26,7 @@ public class BleViewModel extends AndroidViewModel {
         itemRepository.loadItems();
     }
 
-    public boolean isReadyToStart(){
+    public boolean IsReadyToStart(){
         return itemRepository.isReadyToStart();
     }
 }

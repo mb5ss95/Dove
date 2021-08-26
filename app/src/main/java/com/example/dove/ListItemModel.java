@@ -61,6 +61,7 @@ public class ListItemModel {
             catch (InterruptedException e){
                 e.printStackTrace();
             }
+            setStatus("DONE");
         }).start();
     }
 }

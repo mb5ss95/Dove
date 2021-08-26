@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class BleFragment extends Fragment {
     private BleViewModel bleViewModel;
     private ListAdapter listAdapter;
-    public ObservableBoolean isReadyToStart;
+    public ObservableBoolean isReadyToStart = new ObservableBoolean();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,7 +42,7 @@ public class BleFragment extends Fragment {
 
         bleViewModel.getMutableLiveDataItemsList().observe(getViewLifecycleOwner(), (Observer<ArrayList<ListItemModel>>) items -> {
             listAdapter.setItemsList((ArrayList<ListItemModel>) items);
-            isReadyToStart.set(bleViewModel.isReadyToStart());
+            isReadyToStart.set(bleViewModel.IsReadyToStart());
         });
         return root;
     }
